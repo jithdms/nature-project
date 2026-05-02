@@ -1,0 +1,7 @@
+pip install tensorflow numpy Pillow
+
+
+cd flask_app
+
+
+python app.py
