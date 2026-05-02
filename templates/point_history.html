@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>포인트 내역</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}" />
+</head>
+<body>
+  <!-- ❌ 메인으로 돌아가기 버튼 -->
+  <a href="{{ url_for('home') }}" class="exit-button">✖</a>
+  <div class="history-container">
+    <h2 class="history-title">포인트 내역</h2>
+
+    {% if points %}
+      {% for p in points %}
+        <div class="history-item">
+          <p><strong>{{ p.type }}:</strong> {{ p.description }}</p>
+          <p>
+            <span class="history-point
+              {% if p.point > 0 %}
+                plus
+              {% elif p.point < 0 %}
+                minus
+              {% else %}
+                neutral
+              {% endif %}
+            ">
+              {% if p.point > 0 %}
+                +{{ p.point }}P
+              {% elif p.point < 0 %}
+                {{ p.point }}P
+              {% else %}
+                0P
+              {% endif %}
+            </span>
+          </p>
+          <p><strong>날짜:</strong> {{ p.date }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-items">포인트 내역이 없습니다.</div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

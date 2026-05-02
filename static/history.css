@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  * {
+    font-family: 'TTLaundryGothicB', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* 공통 컨테이너 */
+  .history-container {
+    max-width: 480px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* 제목 */
+  .history-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2e7d32;
+  }
+  
+  /* 각 내역 카드 */
+  .history-item {
+    background: #ffffffcc;
+    border: #345f35 solid 1px;
+    border-radius: 7px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    text-align: left;
+  }
+  
+  /* 내역 텍스트 */
+  .history-item p {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  /* 포인트 증가/차감 강조 */
+  .history-point.plus {
+    color: #2e7d32;
+    font-weight: bold;
+  }
+  
+  .history-point.minus {
+    color: #d32f2f;
+    font-weight: bold;
+  }
+  
+  /* 비어 있을 때 문구 */
+  .no-items {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1rem;
+    color: #777;
+  }
+  
+
+  
+  /* ❌ 메인으로 돌아가기 버튼 스타일 */
+.exit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+  transition: color 0.2s ease;
+  z-index: 999;
+}

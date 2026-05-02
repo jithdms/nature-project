@@ -1,0 +1,159 @@
+@font-face {
+  font-family: 'TTLaundryGothicB';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  font-family: 'TTLaundryGothicB';
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+/* 전체 컨테이너 */
+.admin-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* 제목 */
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 각 섹션 공통 스타일 */
+.section {
+  background: #ffffffdd;
+  border-radius: 7px;
+  border: #345f35 solid 1px;
+  padding: 16px;
+  margin: 0 auto 24px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+}
+
+.section h3 {
+  margin-top: 0;
+  color: #345f35;
+}
+
+.section label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+/* 유저 검색창과 버튼 */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.search-row input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin: 0;
+}
+
+.search-row button {
+  padding: 7px 14px;
+  margin: 0;
+}
+
+.section input {
+  width: 100%;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.section button {
+  margin-top: 10px;
+  background-color: #345f35;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.section button:hover {
+  background-color: rgb(28, 78, 31);
+}
+
+/* 테이블 반응형 */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  overflow-x: auto;
+  display: block;
+}
+
+.product-table th,
+.product-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.product-table th {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* ❌ 메인으로 돌아가기 버튼 */
+.exit-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+  transition: color 0.2s ease;
+  z-index: 999;
+}
+
+.exit-button:hover {
+  color: #313131;
+}
+
+/* ✅ 모바일 대응 미디어 쿼리 */
+@media (max-width: 600px) {
+  .search-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-row input,
+  .search-row button {
+    width: 100%;
+  }
+
+  .product-table {
+    font-size: 0.9rem;
+  }
+
+  .product-table th,
+  .product-table td {
+    padding: 6px;
+  }
+}

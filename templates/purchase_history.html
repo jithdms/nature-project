@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품 구매 내역</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='history.css') }}" />
+</head>
+<body>
+  <!-- ❌ 메인으로 돌아가기 버튼 -->
+  <a href="{{ url_for('home') }}" class="exit-button">✖</a>
+  <div class="history-container">
+    <h2 class="history-title">상품 구매 내역</h2>
+
+    {% if purchases %}
+      {% for item in purchases %}
+        <div class="history-item">
+          <p><strong>상품:</strong> {{ item.name }}</p>
+          <p><strong>사용 포인트:</strong> {{ item.point }}P</p>
+          <p><strong>구매일:</strong> {{ item.date }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-items">구매 내역이 없습니다.</div>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

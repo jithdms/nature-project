@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>포인트 상점</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='shop.css') }}" />
+</head>
+<body>
+    <!-- ❌ 메인으로 돌아가기 버튼 -->
+  <a href="{{ url_for('home') }}" class="exit-button">✖</a>
+  <div class="shop-container">
+    <div class="shop-title">포인트 상점</div>
+
+    {% if items %}
+      {% for item in items %}
+        <div class="shop-item">
+          <div class="shop-item-info">
+            <div class="shop-item-name">{{ item[1] }}</div>
+            <div class="shop-item-point">필요 포인트: {{ item[2] }}P</div>
+          </div>
+
+          <form action="{{ url_for('purchase', item_id=item[0]) }}" method="POST">
+            {% if item[2] <= user_point %}
+              <button type="submit">교환</button>
+            {% else %}
+              <button type="button" onclick="alert('포인트가 부족합니다.')" class="disabled-btn">포인트 부족</button>
+            {% endif %}
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-items">
+        상품이 준비되지 않았습니다.
+      </div>
+    {% endif %}
+
+
+  </div>
+
+</body>
+<script src="{{ url_for('static', filename='shop.js') }}"></script>
+</html>

@@ -1,0 +1,121 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
+</head>
+<body>
+  <!-- ❌ 메인으로 돌아가기 버튼 -->
+  <a href="{{ url_for('home') }}" class="exit-button">✖</a>
+
+  <div class="admin-container">
+    <div class="admin-title"> 관리자 페이지</div>
+
+    <!-- 유저 관리 -->
+    <div class="section">
+      <h3>유저 관리</h3>
+      <label>유저 ID 검색:</label>
+      <div class="search-row">
+        <input type="text" id="user-search" placeholder="예: user123" />
+        <button onclick="searchUser()">검색</button>
+      </div>
+
+      <table class="product-table" style="margin-top: 12px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>유저이름</th>
+            <th>이메일</th>
+            <th>가입일</th>
+            <th>포인트</th>
+            <th>등급ID</th>
+            <th>관리자여부</th>
+          </tr>
+        </thead>
+        <tbody id="user-result">
+          <!-- JS에서 검색 결과가 여기에 삽입됨 -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 포인트 관리 -->
+    <div class="section">
+      <h3>포인트 관리</h3>
+      <label>유저 식별자 (ID / 이름 / 이메일):</label>
+      <input type="text" id="point-user-id" />
+      <label>포인트 추가/차감:</label>
+      <input type="number" id="point-amount" />
+      <button onclick="applyPoints()">포인트 적용</button>
+    </div>
+
+    <!-- 상품 추가 -->
+    <div class="section">
+      <h3>상품 추가</h3>
+      <form method="POST" action="{{ url_for('add_item') }}" class="form-inline">
+        <input type="text" name="name" placeholder="상품명" required>
+        <input type="number" name="price" placeholder="가격(P)" required>
+        <input type="number" name="stock" placeholder="재고" required>
+        <button type="submit">상품 등록</button>
+      </form>
+    </div>
+
+    <!-- 상품 목록 -->
+    <div class="section">
+      <h3>상품 목록</h3>
+      <table class="product-table">
+        <thead>
+          <tr><th>ID</th><th>이름</th><th>가격</th><th>재고</th><th>삭제</th></tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td>{{ item[0] }}</td>
+            <td>{{ item[1] }}</td>
+            <td>{{ item[2] }}P</td>
+            <td>{{ item[3] }}</td>
+            <td>
+              <form method="POST" action="{{ url_for('delete_item', item_id=item[0]) }}">
+                <button type="submit" onclick="return confirm('정말 삭제할까요?')">삭제</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ✅ 미션 달성도 현황 -->
+    <div class="section">
+      <h3>미션 달성도 현황</h3>
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>유저 ID</th>
+            <th>유저 이름</th>
+            <th>미션 명</th>
+            <th>포인트 지급</th>
+            <th>날짜</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in missions %}
+          <tr>
+            <td>{{ m[0] }}</td>
+            <td>{{ m[1] }}</td>
+            <td>{{ m[2] }}</td>
+            <td>{{ m[3] }}</td>
+            <td>{{ m[4] }}</td>
+            <!-- <td>{{ m[5] }}</td> -->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>

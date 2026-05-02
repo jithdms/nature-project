@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>메인 페이지</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <style>
+    .container {
+      padding-bottom: 200px !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="scrollable-container">
+  <div class="container">
+
+    <!-- 유저 정보 -->
+    <section class="user-info">
+      <img src="{{ url_for('static', filename=badge) }}" alt="등급 뱃지" class="medal-icon">
+      <div class="user-details">
+        <h3>{{ username }}</h3>
+        <p>현재 포인트: <strong>{{ point }}P</strong></p>
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: {{ (total_point / 100000 * 100)|round(1) }}%;"></div>
+        </div>
+        <div class="progress-text">누적 포인트: {{ total_point }}P / 100000P</div>
+
+        <p class="grade-name">{{ icon }} {{ grade }}</p>
+      </div>
+      <div class="shop-button">
+        <button onclick="location.href='{{ url_for('shop') }}'">
+          <img src="{{ url_for('static', filename='img/shop.png') }}" alt="상점 버튼" class="shop-image">
+        </button>
+      </div>      
+    </section>
+
+    <!-- 친환경 행동 -->
+    <section class="actions">
+      <div class="action-row two-columns">
+        <div class="action-box">
+          <div class="animation-con">
+            <div class="bus-animation-container">
+              <img src="{{ url_for('static', filename='img/bus.png') }}" class="bus" alt="버스">
+            </div>
+          </div>
+          <p>대중교통 이용</p>
+          <button class="action-btn" data-modal="modal-transport">기록하기</button>
+        </div>
+        <div class="action-box">
+          <div class="animation-con2">
+            <div class="bike-animation-container">
+              <img src="{{ url_for('static', filename='img/cyclist_pedaling.gif') }}" class="bike" alt="자전거">
+            </div>
+          </div>
+          <p>자전거 이용</p>
+          <button class="action-btn" data-modal="modal-bike">기록하기</button>
+        </div>
+      </div>
+      <div class="action-row one-column">
+        <div class="action-box">
+          <div class="animation-con3">
+            <div class="bike-animation-container">
+              <img src="{{ url_for('static', filename='img/trash.png') }}" class="bin" alt="쓰레기통">
+            </div>
+          </div>
+          <p>분리배출</p>
+          <button class="action-btn" data-modal="modal-recycle">기록하기</button>
+        </div>
+      </div>
+      <div class="action-row one-column">
+        <div class="action-box walk-box">
+          <span class="walk-label">걷기</span>
+          <span class="walk-count">{{ step_count }}보</span>
+        </div>
+      </div>      
+    </section>
+
+    <!-- 등급 설명 -->
+    <section class="grade-toggle" onclick="toggleGradeInfo()">
+      <div class="grade-box" id="gradeBox">
+        <div class="grade-header">
+          <span id="arrow">▶</span> 등급 설명 보기
+        </div>
+        <div class="grade-info" id="gradeInfo">
+          <p>🌱 <strong>씨앗</strong>: 0 ~ 100P</p>
+          <p>🌱 <strong>새싹</strong>: 101 ~ 300P</p>
+          <p>🍎 <strong>열매</strong>: 301 ~ 600P</p>
+          <p>🌿 <strong>봉오리</strong>: 601 ~ 1000P</p>
+          <p>🌸 <strong>꽃</strong>: 1001 ~ 1500P</p>
+          <p>🌲 <strong>묘목</strong>: 1501 ~ 2200P</p>
+          <p>🌳 <strong>성목</strong>: 2201 ~ 3500P</p>
+          <p>🌍 <strong>세계수</strong>: 3501 ~ 5000P</p>
+          <p style="margin-top: 12px;">등급은 누적 포인트에 따라 자동으로 조정됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 모달 4개 -->
+    <div class="modal" id="modal-transport">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-transport')">&times;</span>
+        <h3>대중교통 이용</h3>
+        <div id="map-transport" class="map-box"></div>
+        <select id="transport-type">
+          <option value="">수단 선택</option>
+          <option value="subway">지하철</option>
+          <option value="bus">버스</option>
+        </select>
+        <button onclick="startTracking()">탑승 시작</button>
+        <button onclick="endTracking()">하차 완료</button>
+        <p id="gps-status" style="margin-top: 10px;"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-bike">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-bike')">&times;</span>
+        <h3>자전거 이용</h3>
+        <div id="map-bike" class="map-box"></div>
+        <button onclick="startBikeTracking()">이용 시작</button>
+        <button onclick="endBikeTracking()">이용 종료</button>
+        <p id="bike-status" style="margin-top: 10px;"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-recycle">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-recycle')">&times;</span>
+        <h3>분리배출</h3>
+        <input type="file" id="recycle-photo" />
+        <select id="recycle-type">
+          <option value="">종류 선택</option>
+          <option value="종이류">종이류</option>
+          <option value="플라스틱">플라스틱</option>
+          <option value="캔/병">캔/병</option>
+        </select>
+        <button onclick="submitRecycle()">제출</button>
+        <p id="recycle-result" style="margin-top: 10px;"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-walk">
+      
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('modal-walk')">&times;</span>
+        <h3>걷기</h3>
+        <p><strong id="step-count">걸음 수: 0보</strong></p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">※ 1000보마다 10포인트가 자동 적립됩니다</p>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- 하단 고정 네비게이션 바 -->
+<nav class="bottom-nav">
+  <button onclick="location.href='{{ url_for('point_history') }}'">
+    <img src="{{ url_for('static', filename='img/coin.png') }}" alt="포인트 내역">
+  </button>
+
+  <button onclick="location.href='{{ url_for('purchase_history') }}'">
+    <img src="{{ url_for('static', filename='img/shopping.png') }}" alt="상품 구매 내역">
+  </button>
+
+  {% if session.get('is_admin') %}
+  <button onclick="location.href='{{ url_for('admin_page') }}'">
+    <img src="{{ url_for('static', filename='img/admin.png') }}" alt="관리자 페이지">
+  </button>
+  {% endif %}
+
+  <button onclick="location.href='{{ url_for('logout') }}'">
+    <img src="{{ url_for('static', filename='img/exit.png') }}" alt="로그아웃">
+  </button>
+</nav>
+
+{% if admin_message %}
+  <script>
+    alert("{{ admin_message }}");
+  </script>
+{% endif %}
+
+
+
+  <!-- Google Maps API -->
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD58G5K6idTkFakoKHLDtwktYkvNtIHScw&callback=initMaps">
+  </script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+  <!-- ✅ 그 다음 Google Maps API -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD58G5K6idTkFakoKHLDtwktYkvNtIHScw&callback=initMaps">
+</script>
+</body>
+</html>

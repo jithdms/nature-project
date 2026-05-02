@@ -1,0 +1,523 @@
+@font-face {
+  font-family: 'TTLaundryGothicB';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'TTLaundryGothicB';
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0; /* ✅ 메뉴바 영역 여백 확보 */
+  font-family: 'Noto Sans KR', sans-serif;
+  background-image: url("/static/img/background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  overflow: hidden; /* 전체 페이지 스크롤 방지 */
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 24px 20px;
+  padding-bottom: 200px; /* ✅ 메뉴바와 겹치지 않도록 충분히 확보 */
+  box-sizing: border-box;
+  /* ✅ 이 줄 제거
+  min-height: calc(100vh - 70px); 
+  */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border: 1px solid #cde6d3;
+  margin-bottom: 24px;
+}
+
+.medal-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.user-details h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #009900;
+}
+
+.user-details p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.grade-name {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.shop-button {
+  margin-left: 12px;
+}
+
+.shop-button button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.shop-button button:hover {
+  transform: translateY(-2px);
+}
+
+.shop-image {
+  width: 45px;
+  height: auto;
+  display: block;
+  margin: 20px;
+  margin-right: 23px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.action-row {
+  display: grid;
+  gap: 16px;
+}
+
+.action-row.two-columns {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.action-row.one-column {
+  grid-template-columns: 1fr;
+}
+
+.action-box {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: default;
+  position: relative;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  transition: transform 0.2s;
+}
+
+
+.action-box p {
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #003603;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  background-color: #345f35;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #2e7d32;
+}
+
+.grade-toggle {
+  text-align: center;
+  user-select: none;
+  margin-bottom: 10px;
+}
+
+.grade-box {
+  position: relative;
+  background-color: #f5fdf6;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  transition: max-height 0.4s ease;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 1px solid #d2e6d5;
+  z-index: 0;
+}
+
+.grade-header {
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.grade-info {
+  margin-top: 12px;
+  display: none;
+  text-align: left;
+  font-size: 0.9rem;
+  color: #345f35;
+}
+
+.grade-box.open .grade-info {
+  display: block;
+}
+
+.grade-info p {
+  margin: 6px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 24px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+  border: 1px solid #a5d6a7;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+.modal-content button {
+  margin: 8px 4px;
+  padding: 8px 16px;
+  background-color: #43a047;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+  background-color: #2e7d32;
+}
+
+.modal-content select,
+.modal-content input[type="file"] {
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.map-box {
+  width: 100%;
+  height: 200px;
+  margin: 10px 0;
+}
+
+.admin-button {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.admin-button a {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.2s;
+}
+
+.admin-button a:hover {
+  background-color: #555;
+}
+
+.walk-box {
+  display: flex;
+  height: 100px !important;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  margin-top: 8px;
+}
+
+.walk-label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2a4d2b;
+}
+
+.walk-count {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2a4d2b;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;             /* ✅ 바닥에 딱 붙게 */
+  left: 0;
+  right: 0;
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.05);
+  z-index: 9999;
+}
+.bottom-nav button {
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #444;
+  font-weight: 600;
+  padding: 6px 0;
+}
+
+.bottom-nav button img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 3px;
+}
+
+.bottom-nav button:active,
+.bottom-nav button.active {
+  color: #2d472c;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #eee;
+  border-radius: 8px;
+  height: 10px;
+  margin: 6px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #4CAF50, #8BC34A);
+  width: 0%;
+}
+
+.progress-text {
+  font-size: 10px;
+  color: #555;
+  margin-top: 2px;
+}
+
+.scrollable-container {
+  height: calc(100vh - 70px);  /* ✅ 바닥 네비게이션 높이만큼 뺌 */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  padding-bottom: 24px;  /* ✅ 네비게이션과 겹치지 않도록 최소 여백 */
+}
+
+.grade-toggle {
+  text-align: center;
+  user-select: none;
+  margin-bottom: 16px; /* ✅ 바와 겹치지 않도록 최소화 */
+}
+
+
+
+
+
+
+
+
+
+/* 노란 애니메이션 박스 (버스 영역) */
+.animation-con {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background-image: url("../static/img/busstop.png"); /* ✅ 여기에 배경 이미지 */
+  background-size: cover;
+  background-position: center 61%;  /* ✅ X축은 center, Y축만 위로 */
+}
+
+/* 예시용 버스 (없으면 생략 가능) */
+.bus-animation-container {
+  position: absolute;
+  top: -5px;
+  left: -60px;
+  animation: moveBus 2s linear infinite; /* ✅ 빠르게 반복 */
+}
+
+.bus {
+  height: 114px;
+}
+
+@keyframes moveBus {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(280px); }
+}
+
+@keyframes moveBus {
+  0%   { transform: translateX(0) translateY(0); }
+  10%  { transform: translateX(30px) translateY(-1px); }
+  20%  { transform: translateX(60px) translateY(1px); }
+
+  /* ✅ 도착 + 정지 시작 */
+  30%  { transform: translateX(90px) translateY(0); }
+  40%  { transform: translateX(90px) translateY(0); }
+  50%  { transform: translateX(90px) translateY(0); }
+  60%  { transform: translateX(90px) translateY(0); }
+
+  /* ✅ 다시 출발 */
+  70%  { transform: translateX(150px) translateY(-1px); }
+  80%  { transform: translateX(210px) translateY(1px); }
+  90%  { transform: translateX(270px) translateY(-1px); }
+  100% { transform: translateX(300px) translateY(0); }
+}
+
+
+
+
+
+/* 텍스트 스타일 */
+.transport-box p {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+
+.animation-con2 {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background-image: url("../static/img/bike_background.png"); /* ✅ 여기에 배경 이미지 */
+  background-size: cover;
+  background-position: center 51%;  /* ✅ X축은 center, Y축만 위로 */
+}
+
+/* 예시용 버스 (없으면 생략 가능) */
+.bus-animation-container2 {
+  position: absolute;
+  top: -5px;
+  left: -60px;
+  animation: moveBus 2s linear infinite; /* ✅ 빠르게 반복 */
+}
+
+.bike {
+  height: 82px;
+  position: absolute;      /* ✅ 추가 필수 */
+  bottom: 0;               /* 바닥 정렬 (선택) */
+  left: -100px;            /* 애니메이션 시작 위치 */
+  animation: moveRight 5s linear infinite;
+}
+
+@keyframes moveRight {
+  0% {
+    left: -100px;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.animation-con3 {
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bin {
+  height: 117px;
+  width: auto;
+  margin-top: -17px;
+}

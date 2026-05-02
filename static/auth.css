@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'EliceDigitalBaeum-Bd';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum-Bd.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'EliceDigitalBaeum-Bd';
+}
+
+
+
+/* auth.css */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #eaf4ec; /* 더 맑고 생기 있는 연녹색 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.auth-container {
+  /* background: #ffffff; */
+  padding: 163px 30px;
+  border-radius: 3px;
+  /* box-shadow: 0 6px 18px rgba(0, 64, 32, 0.08); */
+  width: 790px;
+  max-width: 90%;
+  text-align: center;
+  /* border: 1px solid #cde6d3; 연한 녹색 테두리 */
+  margin-bottom: 80px;
+}
+
+.auth-container h2 {
+  margin-bottom: 65px;
+  font-size: 55px;
+  color: #2e7d32; /* 진한 숲색 */
+}
+
+@media (max-width: 600px) {
+  .auth-container {
+    width: 90%; /* 모바일에서는 90%로 크기 조정 */
+    padding: 24px 20px; /* 여백도 조금 줄이기 */
+  }
+}
+.auth-container input {
+  width: 100%;
+  padding: 27px;
+  margin: 10px 0;
+  border: 1px solid #c8e6c9;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #f7fdf8;
+  transition: border 0.3s, background-color 0.3s;
+  font-size: 30px;
+}
+
+.auth-container input:focus {
+  border-color: #66bb6a;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.auth-container button {
+  width: 100%;
+  padding: 27px;
+  background-color: #43a047;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 33px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(67, 160, 71, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 60px;
+}
+
+.auth-container button:hover {
+  background-color: #388e3c;
+  transform: translateY(-1px);
+}
+
+.auth-container a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.auth-container a:hover {
+  color: #1b5e20;
+}
+
+.auth-container p {
+  margin-top: 55px;
+  font-size: 28px;
+  color: #4e5e4e;
+}
